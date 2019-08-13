@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: HazelCastClientJAR
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: SAMRAT
+Implementation-Vendor-Id: com.example
+Build-Jdk: 1.8.0_101
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/HazelCastClientJAR
+Created-By: Maven Integration for Eclipse
+

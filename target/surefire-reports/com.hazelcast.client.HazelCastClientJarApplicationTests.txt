@@ -1,0 +1,13 @@
+-------------------------------------------------------------------------------
+Test set: com.hazelcast.client.HazelCastClientJarApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 5.89 s <<< FAILURE! - in com.hazelcast.client.HazelCastClientJarApplicationTests
+contextLoads(com.hazelcast.client.HazelCastClientJarApplicationTests)  Time elapsed: 0.003 s  <<< ERROR!
+java.lang.IllegalStateException: Failed to load ApplicationContext
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'hazelcastController' defined in file [/Users/SAMRAT/eclipse-workspace/GCP/HazelCastClientJAR/target/classes/com/hazelcast/client/controllers/HazelcastController.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'hazelcastInstance' defined in class path resource [com/hazelcast/client/ApplicationConfig$HazelcastClientConfiguration.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.hazelcast.core.HazelcastInstance]: Factory method 'hazelcastInstance' threw exception; nested exception is java.lang.RuntimeException: Failed to configure discovery strategies
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'hazelcastInstance' defined in class path resource [com/hazelcast/client/ApplicationConfig$HazelcastClientConfiguration.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.hazelcast.core.HazelcastInstance]: Factory method 'hazelcastInstance' threw exception; nested exception is java.lang.RuntimeException: Failed to configure discovery strategies
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.hazelcast.core.HazelcastInstance]: Factory method 'hazelcastInstance' threw exception; nested exception is java.lang.RuntimeException: Failed to configure discovery strategies
+Caused by: java.lang.RuntimeException: Failed to configure discovery strategies
+Caused by: java.lang.RuntimeException: Could not get token file
+Caused by: java.io.FileNotFoundException: /var/run/secrets/kubernetes.io/serviceaccount/token (No such file or directory)
+
