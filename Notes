@@ -1,0 +1,86 @@
+GCP - Hazelcast
+
+Gloud - installed in on MAC
+1 GKE cluster - 3 nodes 
+
+Create a Cluster - GKE  (without Istio ) With istio Occupying space
+
+gcloud container clusters get-credentials mygkecluster --zone us-central1-a --project astral-petal-248314
+
+kubectl get nodes 
+kubectl cluster-info
+
+====================
+HAZELCAST Server 
+
+
+helm init 
+helm version 
+kubectl get namespace
+kubectl get pods -n kube-system
+
+
+helm repo list
+kubectl create serviceaccount --namespace kube-system tiller
+kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
+kubectl patch deploy --namespace kube-system tiller-deploy -p '{"spec":{"template":{"spec":{"serviceAccount":"tiller"}}}}'      
+helm init --service-account tiller --upgrade
+
+Hazelcast-values.yaml - Created
+helm install --name my-hazel-rel -f Hazelcast-values.yaml stable/hazelcast
+helm upgrade my-hazel-rel -f Hazelcast-values.yaml stable/hazelcast
+
+kubectl get all
+
+// helm delete my-hazel-rel
+
+You can access Management Center by the URL specified in LoadBalancer: “http://<EXTERNAL-IP>:8080/hazelcast-mancenter“.
+http://35.192.92.89:8080/hazelcast-mancenter
+
+===================================
+
+HAZELcast Client 
+
+git clone https://github.com/girisheduru/GCPHazelCast-Client.git 
+
+export PROJECT_ID=astral-petal-248314
+docker build -t gcr.io/${PROJECT_ID}/hazelcast-client:v2 .
+docker images
+gcloud auth configure-docker
+docker push gcr.io/${PROJECT_ID}/hazelcast-client:v2
+
+
+// docker run --rm -p 8080:8080 gcr.io/${PROJECT_ID}/hazelcast-client:v1 — if on its own 
+
+kubectl create deployment hazelcast-client --image=gcr.io/${PROJECT_ID}/hazelcast-client:v2
+kubectl get pods
+kubectl expose deployment hazelcast-client  --type=LoadBalancer --port 80 --target-port 8080
+kubectl get service
+kubectl scale deployment hazelcast-client --replicas=3
+kubectl get deployment hazelcast-client 
+kubectl get pods
+Kubectl get all
+
+
+ClusterRole 
+kubectl apply -f ./rbac.yaml 
+kubectl get clusterrolebindings
+Kubectl get clusterroles
+
+==================================
+
+//Delete Commands 
+kubectl delete deployment.apps/hazelcast-client service/hazelcast-client
+kubectl get all
+kubectl logs hazelcast-client-c4764f6ff-gmfh9
+//docker image rm gcr.io/${PROJECT_ID}/hazelcast-client:v1 
+
+kubectl delete clusterrolebindings service-reader-pod
+kubectl delete clusterroles service-reader
+
+
+==================================
+
+
+
+
